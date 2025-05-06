@@ -10,5 +10,6 @@
         "**/.project": true,
         "**/.settings": true,
         "**/React-JS.code-workspace": true
-    }
+    },
+    "hide-files.files": []
 }
