@@ -1,35 +1,30 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  imports: [ReactiveFormsModule],
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  loginForm !: FormGroup;
+   loginForm: FormGroup;
+   constructor(private fb: FormBuilder) { 
+     this.loginForm=this.fb.group({
+         email:['',[Validators.required,Validators.email]],
+         password:['',[Validators.required,Validators.minLength(6)]]
+     })
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.createLoginForm();
-  }
-
-  createLoginForm() {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-    });
-  }
-
-  login() {
-    if (this.loginForm.valid) {
-      console.log('Login successful:', this.loginForm.value);
-      this.router.navigate(['/dashboard']); // Redirect after successful login
-    } else {
-      console.log('Invalid credentials');
+  
+    
+   }
+   onSubmit(){
+    if(this.loginForm.valid){
+      console.log('Login successful',this.loginForm.value);
+      alert("successfull");
+    }else{
+      this.loginForm.markAllAsTouched();
     }
-  }
+   }
 }
-
