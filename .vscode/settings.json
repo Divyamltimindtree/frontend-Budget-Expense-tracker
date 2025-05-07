@@ -11,5 +11,10 @@
         "**/.settings": true,
         "**/React-JS.code-workspace": true
     },
-    "hide-files.files": []
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }
