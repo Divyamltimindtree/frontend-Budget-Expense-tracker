@@ -10,5 +10,11 @@
         "**/.project": true,
         "**/.settings": true,
         "**/React-JS.code-workspace": true
+    },
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
     }
 }
