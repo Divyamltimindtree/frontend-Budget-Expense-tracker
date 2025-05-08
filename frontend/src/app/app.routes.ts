@@ -16,7 +16,7 @@ export const routes: Routes = [
     {path:'signup',component:SignupComponent},
 
     { path: 'add-income', component: AddIncomeComponent },
-    { path: 'expenses', component: ExpensesComponent }
+    { path: 'expenses', component: ExpensesComponent },
 
     { path: 'dashboard', component: DashboardComponent },
     
