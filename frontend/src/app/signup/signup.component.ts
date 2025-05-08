@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NavbarComponent } from '../component/navbar/navbar.component';
 
 @Component({
   selector: 'app-signup',
-   imports: [CommonModule, ReactiveFormsModule], // Direct imports instead of app.module.ts
+   imports: [CommonModule, ReactiveFormsModule,NavbarComponent], // Direct imports instead of app.module.ts
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
