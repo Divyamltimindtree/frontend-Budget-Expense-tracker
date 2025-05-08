@@ -1,5 +1,5 @@
-<nav class="bg-gray-100 text-black shadow-md p-4 flex justify-between items-center">
-    <div class="text-xl font-bold">{{ title }}</div>
+<nav class="bg-gray-200 text-black shadow-md p-4 flex justify-between items-center">
+    <div class="text-xl font-bold italic">{{ title }}</div>
     <ul class="flex gap-6">
       <li *ngFor="let link of links">
         <a [routerLink]="link.route" class="hover:text-gray-600">{{ link.label }}</a>
