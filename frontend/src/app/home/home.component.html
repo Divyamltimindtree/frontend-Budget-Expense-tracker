@@ -1,34 +1,39 @@
-<!-- <nav class="navbar">
-    <div class="logo">Personal Budget Tracker</div>
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a routerLink="/login">Login</a></li>
-      <li><a href="#">Signup</a></li>
-    </ul>
-  </nav>
-  
-  <div class="home-content">
-    <h1>Welcome to Personal Budget Tracker</h1>
-    <p>A personal budget tracker helps manage income and expenses, promotes savings, and improves financial habits. It offers clarity, control, and confidence, making it easier to achieve financial goals and stability.</p>
-  </div> -->
 
-  <!-- Navbar -->
-<nav class="bg-gray-100 text-black shadow-md p-4 flex justify-between items-center">
-    <div class="text-xl font-bold">Personal Budget Tracker</div>
-    <ul class="flex gap-6">
-      <li><a href="#" class="hover:text-gray-600">Home</a></li>
-      <li><a routerLink="/login" class="hover:text-gray-600">Login</a></li>
-      <li><a href="#" class="hover:text-gray-600">Signup</a></li>
-    </ul>
-  </nav>
-  
-  <!-- Home Content -->
-  <div class="max-w-4xl mx-auto mt-10 p-8 bg-white text-black border border-gray-200 shadow-lg rounded-lg">
-    <h1 class="text-3xl font-semibold mb-4">Welcome to Personal Budget Tracker</h1>
-    <p class="text-lg leading-relaxed">
-      A personal budget tracker helps manage income and expenses, promotes savings, and improves financial habits.
-      It offers clarity, control, and confidence, making it easier to achieve financial goals and stability.
+  <!-- <app-navbar
+  [title]="'Personal Budget Tracker'"
+  [links]="[
+    { label: 'Home', route: '/' },
+    { label: 'Login', route: '/login' },
+    { label: 'Signup', route: '/signup' }
+  ]">
+</app-navbar> -->
+<!-- Navbar at the top -->
+<app-navbar
+  [title]="'Penny $aver'"
+  [links]="[
+    { label: 'Home', route: '/' },
+    { label: 'Login', route: '/login' },
+    { label: 'Signup', route: '/signup' }
+  ]">
+</app-navbar>
+
+<!-- Main content with background image (no blur) -->
+<div class="relative flex items-center justify-center min-h-screen overflow-hidden">
+  <!-- Background Image (no blur) -->
+  <img src="/pexels-karolina-grabowska-5632397.jpg"
+       alt="Background"
+       class="absolute inset-0 w-full h-full object-cover brightness-75 z-0" />
+
+  <!-- Overlay Content: More transparent container -->
+  <div class="relative z-10 max-w-2xl mx-auto p-8 bg-white/50 rounded-xl shadow-lg text-center">
+    <h1 class="text-4xl font-bold mb-4 text-gray-900">Welcome to Personal Budget Tracker</h1>
+    <p class="text-lg text-gray-700">
+      Manage your income and expenses, promote savings, and improve your financial habits.<br>
+      Get clarity, control, and confidence to achieve your financial goals!
     </p>
   </div>
+</div>
+  
+ 
   
   
