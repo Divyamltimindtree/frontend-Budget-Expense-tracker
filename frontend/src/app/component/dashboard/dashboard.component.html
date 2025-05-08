@@ -1,13 +1,12 @@
-<nav class="navbar">
-    <div class="navbar-left">
-      <span>Profile</span>
-    </div>
-    <div class="navbar-right">
-      <button (click)="navigateTo('expenses')">Expenses</button>
-      <button (click)="navigateTo('income')">Income</button>
-      <button (click)="logout()">Logout</button>
-    </div>
-  </nav>
+
+  <app-navbar
+  [title]="'Penny $aver'"
+  [links]="[
+    { label: 'Expense', route: '/Expense' },
+    { label: 'Income', route: '/Income' },
+    { label: 'Logout', route: '/Logout' }
+  ]">
+ </app-navbar>
   <div class="dashboard-content">
     <!-- Add your dashboard content here -->
   </div>
