@@ -1,4 +1,12 @@
-<div class="container mx-auto mt-10 p-5">
+
+<app-navbar [title]="'Penny $aver'" [links]="[
+    { label: 'Dashboard', route: '/dashboard' },
+    { label: 'Expense', route: '/expenses' },
+    { label: 'Logout', route: '/logout' }
+  ]">
+</app-navbar>
+
+<div class="container mx-auto mt-10 p-5"> <!-- ✅ Adds space above and centers page -->
   <div class="flex flex-wrap justify-between items-center">
 
     <!-- ✅ Income & Budget Display Section -->
