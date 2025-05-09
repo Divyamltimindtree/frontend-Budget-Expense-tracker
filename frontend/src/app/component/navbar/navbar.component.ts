@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { filter } from 'rxjs/operators';
 
 export interface NavLink {
   label: string;
@@ -9,17 +11,30 @@ export interface NavLink {
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule,RouterModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
   @Input() title: string = 'Personal Budget Tracker';
-  @Input() links: NavLink[] = [
-    { label: 'Home', route: '/' },
-    { label: 'Login', route: '/login' },
-    { label: 'Signup', route: '/signup' }
-  ];
+  @Input() links: NavLink[] = [];
 
+  currentRoute: string = '';
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.currentRoute = event.url;
+      });
+  }
+
+  onLogout() {
+    this.authService.logout();
+  }
+
+  shouldShowLogout(): boolean {
+    return !['/login', '/signup','/'].includes(this.currentRoute);
+  }
 }

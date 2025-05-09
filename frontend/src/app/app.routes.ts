@@ -19,8 +19,8 @@ export const routes: Routes = [
     { path: 'add-income', component: AddIncomeComponent },
     { path: 'expenses', component: ExpensesComponent },
 
-    { path: 'dashboard', component: DashboardComponent },
+    { path: 'dashboard', component: DashboardComponent }
     
-    { path: 'home', component:HomeComponent},
+    
     
 ];
