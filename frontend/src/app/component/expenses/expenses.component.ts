@@ -1,22 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
 import { Expenses } from '../../models/expenses';
-import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { ExpenseService } from '../../services/expense.service';
 
 @Component({
   selector: 'app-expenses',
-  imports: [CommonModule, ReactiveFormsModule,NavbarComponent],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
+
   templateUrl: './expenses.component.html',
-  styleUrls: ['./expenses.component.css']
+  styleUrls: ['./expenses.component.css'],
 })
 export class ExpensesComponent implements OnInit {
   expenseForm!: FormGroup;
-  expenses: Expenses[] = []; 
-  predefinedCategories = ['Food', 'Transport', 'Shopping', 'Bills']; 
+  expenses: Expenses[] = [];
+  predefinedCategories = ['Food', 'Transport', 'Shopping', 'Bills'];
   newCategory = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private expensesService: ExpenseService) {}
 
   ngOnInit(): void {
     this.expenseForm = this.fb.group({
@@ -24,26 +28,62 @@ export class ExpensesComponent implements OnInit {
       categoryName: ['', Validators.required],
       description: [''],
       date: [new Date().toISOString().split('T')[0], Validators.required],
-      newCategory: ['']
+      newCategory: [''],
     });
+
+    // Fetch expenses from backend on component load
+    this.loadExpenses();
+  }
+
+  loadExpenses(): void {
+    this.expensesService.getAllExpenses().subscribe(
+      (data) => {
+        this.expenses = data;
+      },
+      (error) => {
+        console.error('Error fetching expenses:', error);
+      }
+    );
   }
 
   addExpense(): void {
     if (this.expenseForm.valid) {
-      this.expenses.push(this.expenseForm.value);
-      this.expenseForm.reset();
+      const expenseData = this.expenseForm.value;
+      
+      this.expensesService.createExpense(expenseData).subscribe(
+        (response) => {
+          console.log('Expense added:', response);
+          alert('Expense added successfully!');
+          this.loadExpenses(); // Refresh the list after adding
+          this.expenseForm.reset();
+        },
+        (error) => {
+          console.error('Error adding expense:', error);
+          alert('Failed to add expense. Try again.');
+        }
+      );
     }
   }
 
-  deleteExpense(index: number): void {
-    this.expenses.splice(index, 1);
+  deleteExpense(id: number): void {
+    this.expensesService.deleteExpense(id).subscribe(
+      () => {
+        console.log('Expense deleted successfully');
+        alert('Expense deleted successfully!');
+        this.loadExpenses(); // Refresh list after deletion
+      },
+      (error) => {
+        console.error('Error deleting expense:', error);
+        alert('Failed to delete expense. Try again.');
+      }
+    );
   }
 
   addCategory(): void {
     const category = this.expenseForm.get('newCategory')?.value?.trim();
     if (category) {
       this.predefinedCategories.push(category);
-      this.expenseForm.get('newCategory')?.setValue(''); // ✅ Clears the input field
+      this.expenseForm.get('newCategory')?.setValue(''); // Clears the input field
     }
   }
 }
