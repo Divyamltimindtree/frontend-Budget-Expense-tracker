@@ -18,6 +18,7 @@ export class AddIncomeComponent implements OnInit {
   imagePath = 'abc.jpg';
   currentIncome = '-';
   currentBudget = '-';
+  incomeId: number | null = null; // ✅ Stores current income ID
 
   constructor(private fb: FormBuilder, private incomeService: IncomeService) {}
 
@@ -42,21 +43,41 @@ export class AddIncomeComponent implements OnInit {
 
       this.incomeService.addIncome(incomeData).subscribe(
         (response) => {
-          console.log('Income saved successfully:', response);
           alert('Income details saved successfully!');
           this.currentIncome = this.incomeForm.get('amount')?.value || '-';
           this.currentBudget = this.incomeForm.get('budget')?.value || '-';
-          this.incomeForm.reset();
-          this.budgetExceeded = false;
-          this.budgetInvalid = false;
+          this.incomeId = response.id; // ✅ Store the newly added income ID
         },
         (error) => {
-          console.error('Error saving income:', error);
           alert('Failed to save income details. Please try again.');
         }
       );
-    } else {
-      alert('Please fill out the form correctly.');
+    }
+  }
+
+  updateIncome(): void {
+    if (this.incomeId) {
+      const updatedData = this.incomeForm.value;
+
+      this.incomeService.updateIncome(this.incomeId, updatedData).subscribe(
+        () => alert('Income updated successfully!'),
+        () => alert('Failed to update income!')
+      );
+    }
+  }
+
+  deleteIncome(): void {
+    if (this.incomeId) {
+      this.incomeService.deleteIncome(this.incomeId).subscribe(
+        () => {
+          alert('Income deleted successfully!');
+          this.currentIncome = '-';
+          this.currentBudget = '-';
+          this.incomeId = null;
+          this.incomeForm.reset();
+        },
+        () => alert('Failed to delete income!')
+      );
     }
   }
 }
