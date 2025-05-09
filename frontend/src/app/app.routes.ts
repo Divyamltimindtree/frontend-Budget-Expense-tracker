@@ -10,6 +10,7 @@ import { AddIncomeComponent } from './component/add-income/add-income.component'
 import { ExpensesComponent } from './component/expenses/expenses.component';
 
 
+
 export const routes: Routes = [
     {path:'',component:HomeComponent },
     {path:'login',component:LoginComponent},
