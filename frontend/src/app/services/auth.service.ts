@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private baseUrl = 'http://localhost:8080/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   signup(user: any): Observable<string> {
     return this.http.post(`${this.baseUrl}/signup`, user, { responseType: 'text' });
@@ -50,5 +51,6 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('jwt');
+    //this.router.navigate(['/home']);
   }
 }
