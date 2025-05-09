@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Expenses } from '../../models/expenses';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -9,8 +9,7 @@ import { ExpenseService } from '../../services/expense.service';
 @Component({
   selector: 'app-expenses',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
-
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent, FormsModule],
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.css'],
 })
@@ -19,6 +18,7 @@ export class ExpensesComponent implements OnInit {
   expenses: Expenses[] = [];
   predefinedCategories = ['Food', 'Transport', 'Shopping', 'Bills'];
   newCategory = '';
+  selectedCategory = '';
 
   constructor(private fb: FormBuilder, private expensesService: ExpenseService) {}
 
@@ -81,9 +81,17 @@ export class ExpensesComponent implements OnInit {
 
   addCategory(): void {
     const category = this.expenseForm.get('newCategory')?.value?.trim();
-    if (category) {
+    if (category && !this.predefinedCategories.includes(category)) {
       this.predefinedCategories.push(category);
       this.expenseForm.get('newCategory')?.setValue(''); // Clears the input field
     }
+  }
+
+  // ✅ Updated Filtering Logic
+  get filteredExpenses(): Expenses[] {
+    if (!this.selectedCategory || this.selectedCategory === '') {
+      return this.expenses; // Show all expenses if no category is selected
+    }
+    return this.expenses.filter(expense => expense.categoryName === this.selectedCategory);
   }
 }
