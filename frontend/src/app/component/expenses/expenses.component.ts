@@ -3,12 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Expenses } from '../../models/expenses';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { ExpenseService } from '../../services/expense.service';
 
 @Component({
   selector: 'app-expenses',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
+
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.css'],
 })
